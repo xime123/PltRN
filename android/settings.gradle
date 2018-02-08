@@ -1,0 +1,3 @@
+rootProject.name = 'JuAppFromwork'
+
+include ':app', ':juplt', ':pltmodule'
