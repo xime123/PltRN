@@ -70,4 +70,9 @@ public class JUPltModule extends BaseModule {
         InvokeReq invokeReq=new InvokeReq(params.getString("userID"),params.getString("token"),params.getString("cd"),params.getString("data"));
         return invokeReq;
     }
+
+    @Override
+    public boolean canOverrideExistingModule() {
+        return true;
+    }
 }

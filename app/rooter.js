@@ -29,7 +29,7 @@ import MainContainer from './containers/MainContainer';
 import CategaryContainer from './containers/CategaryContainer';
 import MineContainer from './containers/MineContainer';
 import LoginPage from './pages/start/login';
-import Register from './pages/start/Register';
+import Register from './pages/start/register';
 import BackUtils from './util/backUtils'
 import * as Constant from './style/constant'
 import {screenWidth, drawerWidth} from "./style/index";

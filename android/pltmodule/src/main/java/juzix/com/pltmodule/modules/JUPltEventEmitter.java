@@ -48,4 +48,9 @@ public class JUPltEventEmitter extends BaseModule {
         constants.put("kEventNameUseReveiveNotify","");
         return constants;
     }
+
+    @Override
+    public boolean canOverrideExistingModule() {
+        return true;
+    }
 }

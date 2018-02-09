@@ -9,6 +9,7 @@ import{
     BackHandler,
     Keyboard,
     Alert,
+    DeviceEventEmitter
 }from'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -28,10 +29,11 @@ const animaTime = 600;
 class LoginPage extends Component{
     constructor(props) {
         super(props);
-     
+        this.onClose = this.onClose.bind(this);
         this.userInputChange = this.userInputChange.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
         this.toLogin = this.toLogin.bind(this);
+        this.startActivity=this.startActivity.bind(this);
         this.params = {
             userName: '',
             password: ''
@@ -46,19 +48,39 @@ class LoginPage extends Component{
         }
     }
 
-    componentDidMount(){
+   
+
+    componentWillUnmount() {
         
+        if (this.handle) {
+            this.handle.remove();
+        }
+
+
+    }
+
+
+    componentDidMount(){
+
+        console.log('componentDidMount======>');
+
         this.handle = BackHandler.addEventListener('hardwareBackPress-LoginPage', this.onClose)
         Animated.timing(this.state.opacity,{
             duration:animaTime,
             toValue:1
         }).start();
-    }
+      }
 
-    componentWillUnmount() {
-        if (this.handle) {
-            this.handle.remove();
+    onClose() {
+        if (Actions.state.index === 0) {
+            return false;
         }
+        Animated.timing(this.state.opacity, {
+            duration: animaTime,
+            toValue: 0,
+        }).start(Actions.pop());
+        return true;
+
     }
 
     userInputChange(text) {
@@ -69,6 +91,17 @@ class LoginPage extends Component{
         this.params.password = text;
     }
 
+    startActivity(){
+        var {NativeModules}=require('react-native');
+        let RNNativeRooter=NativeModules.RNNativeRooter;
+        var RooterAction={
+            targetComponent:'com.juappfromwork.TestActivity',
+            orginComponent:'LoginPage',
+            rooterType:1,
+            props:'我是来自RN的数据'
+        };
+        RNNativeRooter.pushComponent(JSON.stringify(RooterAction));
+    }
 
     toLogin() {
         let {login} = this.props;
@@ -211,6 +244,7 @@ class LoginPage extends Component{
                     <TouchableOpacity style={[styles.centered, {marginTop: Constant.normalMarginEdge}]}
                                       onPress={() => {
                                         //   Linking.openURL("https://github.com/join")
+                                        this.startActivity();
                                       }}>
                         <Text
                             style={[styles.subSmallText,]}>{" " + I18n('register') + " "}</Text>
