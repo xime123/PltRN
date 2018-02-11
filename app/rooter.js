@@ -35,7 +35,7 @@ import * as Constant from './style/constant'
 import {screenWidth, drawerWidth} from "./style/index";
 import WelcomePage from './pages/start/WelcomePage';
 import styles from './style'
-
+import LoadingModal from'./components/common/LoadingModal';
 /**
  * 全局路由
  */
@@ -100,7 +100,7 @@ const getRouter = () => {
                          hideNavBar/>
                          
               </Scene>
-            
+              <Scene key="LoadingModal" component={LoadingModal}/>
           </Lightbox>
       </Router>
   )

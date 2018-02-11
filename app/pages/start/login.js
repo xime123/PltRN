@@ -118,9 +118,11 @@ class LoginPage extends Component{
             userName: this.params.userName,
             password: this.params.password
         });
+        Actions.LoadingModal({backExit: false});
         Keyboard.dismiss();
    
         login.doLogin(this.params.userName, this.params.password,(res)=>{
+            this.exitLoading();
             if(!res){
                 Alert.alert('登录失败');
             }else{
